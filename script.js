@@ -16,10 +16,29 @@ var questionBankObj = [
     choice: ["1", "2", "3", "4"],
   },
 ];
+var timeLeft = 75;
 
 const startGame = document.getElementById("start-button");
+const timerEl = document.getElementById("timer");
 startGame.addEventListener("click", begin);
 function begin() {
+  // make button disappear, change text at top to first question after button is clicked
   console.log("game started");
+  countdown();
 }
-begin();
+
+function countdown() {
+  timeLeft = 75;
+  writeTime();
+  console.log(timeLeft);
+
+  setInterval(function () {
+    if (timeLeft > 0) {
+      timeLeft--;
+      writeTime();
+    }
+  }, 1000);
+}
+function writeTime() {
+  timerEl.textContent = "Time Remaining: " + timeLeft;
+}
