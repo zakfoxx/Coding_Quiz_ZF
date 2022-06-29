@@ -28,24 +28,25 @@ const timerEl = document.getElementById("timer");
 //startGame.addEventListener("click", begin);
 function begin() {
   console.log("game started");
+  startGame.style.display = "none";
+  setQuestion(questionBankObj[questionTracker]);
   countdown();
 }
 
 function countdown() {
   timeLeft = 75;
-  writeTime();
+  // writeTime();
   console.log(timeLeft);
 
   setInterval(function () {
     if (timeLeft > 0) {
       timeLeft--;
-      writeTime();
+      timerEl.textContent = "Time Remaining: " + timeLeft;
+      // writeTime();
     }
   }, 1000);
 }
-function writeTime() {
-  timerEl.textContent = "Time Remaining: " + timeLeft;
-}
+//function writeTime() {}
 function setQuestion(object) {
   headerElement.textContent = object.question;
   // building answers
@@ -59,11 +60,6 @@ function setQuestion(object) {
   contentElement.replaceChildren(orderedListEl);
 }
 function quizFunction(event) {
-  if (event.target.getAttribute("id") === "start-button") {
-    //console.log("start-game");
-    begin();
-    setQuestion(questionBankObj[questionTracker]);
-  }
   console.log(questionBankObj[questionTracker].answer);
   event.target.setAttribute("data-answer", event.target.textContent);
   console.log(event.target.getAttribute("data-answer"));
@@ -78,7 +74,10 @@ function quizFunction(event) {
     console.log(questionTracker);
   } else {
     console.log("questionWrong");
+    questionTracker++;
+    setQuestion(questionBankObj[questionTracker]);
     timeLeft - 10;
+    //writeTime();
   }
   if (questionTracker >= questionBankObj.length) {
     // check if last qustion is finsihed and move on to end
@@ -86,7 +85,7 @@ function quizFunction(event) {
     // next question
   }
 }
-
+startGame.addEventListener("click", begin);
 contentElement.addEventListener("click", quizFunction);
 // start game
 
