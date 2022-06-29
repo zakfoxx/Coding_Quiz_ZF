@@ -46,33 +46,46 @@ function countdown() {
 function writeTime() {
   timerEl.textContent = "Time Remaining: " + timeLeft;
 }
-function quizFunction(event) {
-  console.log(event.target);
-  if (event.target.getAttribute("id") === "start-button") {
-    //console.log("start-game");
-    begin();
-    setQuestion(questionBankObj[questionTracker]);
-  }
-  // check if last qustion is finsihed and move on to end
-  if (questionTracker >= questionBankObj.length) {
-  } else {
-    // next question
-  }
-}
 function setQuestion(object) {
   headerElement.textContent = object.question;
   // building answers
   var orderedListEl = document.createElement("ol");
   for (var i = 0; i < object.choice.length; i++) {
-    var listElement = document.createElement("li");
+    var listElement = document.createElement("button");
     listElement.setAttribute("id", i);
     listElement.textContent = object.choice[i];
     orderedListEl.appendChild(listElement);
   }
   contentElement.replaceChildren(orderedListEl);
 }
+function quizFunction(event) {
+  if (event.target.getAttribute("id") === "start-button") {
+    //console.log("start-game");
+    begin();
+    setQuestion(questionBankObj[questionTracker]);
+  }
+  console.log(questionBankObj[questionTracker].answer);
+  event.target.setAttribute("data-answer", event.target.textContent);
+  console.log(event.target.getAttribute("data-answer"));
 
-// 
+  if (
+    event.target.getAttribute("data-answer") ==
+    questionBankObj[questionTracker].answer
+  ) {
+    console.log("questionRight");
+    questionTracker++;
+    setQuestion(questionBankObj[questionTracker]);
+    console.log(questionTracker);
+  } else {
+    console.log("questionWrong");
+    timeLeft - 10;
+  }
+  if (questionTracker >= questionBankObj.length) {
+    // check if last qustion is finsihed and move on to end
+  } else {
+    // next question
+  }
+}
 
 contentElement.addEventListener("click", quizFunction);
 // start game
