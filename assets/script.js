@@ -27,14 +27,13 @@ const startGame = document.getElementById("start-button");
 const timerEl = document.getElementById("timer");
 //startGame.addEventListener("click", begin);
 function begin() {
+  countdown();
   console.log("game started");
   startGame.style.display = "none";
   setQuestion(questionBankObj[questionTracker]);
-  countdown();
 }
 
 function countdown() {
-  timeLeft = 75;
   // writeTime();
   console.log(timeLeft);
 
@@ -68,7 +67,7 @@ function quizFunction(event) {
     event.target.getAttribute("data-answer") ==
     questionBankObj[questionTracker].answer
   ) {
-    console.log("questionRight");
+    console.log("questionRight", timeLeft);
     questionTracker++;
     setQuestion(questionBankObj[questionTracker]);
     console.log(questionTracker);
@@ -76,7 +75,7 @@ function quizFunction(event) {
     console.log("questionWrong");
     questionTracker++;
     setQuestion(questionBankObj[questionTracker]);
-    timeLeft - 10;
+    timeLeft -= 10;
     //writeTime();
   }
   if (questionTracker >= questionBankObj.length) {
@@ -94,3 +93,7 @@ contentElement.addEventListener("click", quizFunction);
 // wrong answer = time decreases, footer tells if answer is correct - next question
 
 // correct answer, footer tells if answer is correct = next question
+
+// caluculate score with timeRemaining
+
+// have a endQuiz function to display a text field for users info and redisplay startQuiz button
