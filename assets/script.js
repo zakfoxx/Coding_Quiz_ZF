@@ -40,6 +40,16 @@ var questionBankObj = [
     answer: 2,
     choice: ["1", "2", "3", "4"],
   },
+  {
+    question: "question 3",
+    answer: 2,
+    choice: ["1", "2", "3", "4"],
+  },
+  {
+    question: "question 4",
+    answer: 2,
+    choice: ["1", "2", "3", "4"],
+  },
 ];
 var timeLeft = 75;
 let answers = [];
