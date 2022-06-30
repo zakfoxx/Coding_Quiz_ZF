@@ -1,6 +1,26 @@
 var headerElement = document.querySelector(".quiz-header");
 var contentElement = document.querySelector(".quiz-content");
 var footerElement = document.querySelector(".quiz-footer");
+
+const results = document.createElement("div");
+const score = document.createElement("p");
+const inputArea = document.createElement("div");
+const inputPrompt = document.createElement("p");
+const inputSubmit = document.createElement("div");
+const inputBox = document.createElement("input");
+const submitButton = document.createElement("button");
+const initialList = document.createElement("ol");
+const goBack = document.createElement("button");
+inputPrompt.textContent = "Enter your initials";
+inputSubmit.appendChild(inputBox);
+inputSubmit.appendChild(submitButton);
+inputArea.appendChild(inputPrompt);
+inputArea.appendChild(inputSubmit);
+
+results.appendChild(score);
+results.appendChild(inputArea);
+results.appendChild(initialList);
+results.appendChild(goBack);
 // var setQuizHeader = function;
 var questionTracker = 0;
 var questionBankObj = [
@@ -22,6 +42,8 @@ var questionBankObj = [
   },
 ];
 var timeLeft = 75;
+let answers = [];
+let initials = [];
 
 const startGame = document.getElementById("start-button");
 const timerEl = document.getElementById("timer");
@@ -31,6 +53,7 @@ function begin() {
   console.log("game started");
   startGame.style.display = "none";
   setQuestion(questionBankObj[questionTracker]);
+  console.log("game finished");
 }
 
 function countdown() {
@@ -54,10 +77,14 @@ function setQuestion(object) {
     var listElement = document.createElement("button");
     listElement.setAttribute("id", i);
     listElement.textContent = object.choice[i];
+    if (questionTracker < questionBankObj.length) {
+      listElement.onclick = (event) => quizFunction(event);
+    }
     orderedListEl.appendChild(listElement);
   }
   contentElement.replaceChildren(orderedListEl);
 }
+
 function quizFunction(event) {
   console.log(questionBankObj[questionTracker].answer);
   event.target.setAttribute("data-answer", event.target.textContent);
@@ -69,23 +96,51 @@ function quizFunction(event) {
   ) {
     console.log("questionRight", timeLeft);
     questionTracker++;
-    setQuestion(questionBankObj[questionTracker]);
+    answers.push(2);
+    checkStatus();
     console.log(questionTracker);
   } else {
     console.log("questionWrong");
     questionTracker++;
-    setQuestion(questionBankObj[questionTracker]);
+    answers.push(1);
+    checkStatus();
     timeLeft -= 10;
     //writeTime();
   }
-  if (questionTracker >= questionBankObj.length) {
-    // check if last qustion is finsihed and move on to end
-  } else {
-    // next question
-  }
 }
 startGame.addEventListener("click", begin);
-contentElement.addEventListener("click", quizFunction);
+
+function checkStatus() {
+  if (questionTracker === questionBankObj.length) {
+    headerElement.textContent = "Quiz Results";
+
+    score.textContent = answers.reduce((a, b) => a + b, 0);
+
+    submitButton.textContent = "Submit";
+    submitButton.onclick = () => {
+      initials.push(inputBox.value);
+      var listElement = document.createElement("li");
+      listElement.setAttribute("id", initials.length);
+      listElement.textContent = inputBox.value;
+      initialList.appendChild(listElement);
+      inputBox.value = "";
+    };
+    console.log(initials);
+
+    goBack.textContent = "Start Over";
+    goBack.onclick = () => {
+      questionTracker = 0;
+      answers = [];
+      countdown();
+      setQuestion(questionBankObj[questionTracker]);
+    };
+
+    contentElement.replaceChildren(results);
+    return;
+  } else {
+    setQuestion(questionBankObj[questionTracker]);
+  }
+}
 // start game
 
 // start timer/loads first questions
