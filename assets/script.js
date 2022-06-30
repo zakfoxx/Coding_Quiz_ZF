@@ -27,28 +27,38 @@ var questionBankObj = [
   {
     //object contains the question, the index of the answer from choices, will give an Id to each choice associated to its position within the array.
     question: "Arrays in JavaScript can be used to store __",
-    answer: 2,
-    choice: ["numbers and strings", "2", "3", "4"],
+    answer: "Numbers and Strings",
+    choice: ["Numbers and strings", "Files", "HTML", "Images"],
   },
   {
-    question: "Commonly used data types",
-    answer: 2,
-    choice: ["1", "2", "3", "4"],
+    question: "What does HTML stand for?",
+    answer: "Hypertext Markup Language",
+    choice: [
+      "Hyper Text Markup Leveler",
+      "Hyper Text Marketing Language",
+      "Hypertext Markup Language",
+      "Hyper Trainer Marking Language",
+    ],
   },
   {
-    question: "This is a question",
-    answer: 2,
-    choice: ["1", "2", "3", "4"],
+    question: "Which of the following is not a programing language?",
+    answer: "Anaconda",
+    choice: ["JavaScript", "Anaconda", "Python", "HTML"],
   },
   {
-    question: "question 3",
-    answer: 2,
-    choice: ["1", "2", "3", "4"],
+    question: "What does this equation mean ? a != t",
+    answer: "A is not equal to t",
+    choice: [
+      "A is not equal to t",
+      "T is added to a",
+      "A and t are equal",
+      "A is subtracted from t",
+    ],
   },
   {
-    question: "question 4",
-    answer: 2,
-    choice: ["1", "2", "3", "4"],
+    question: "A short sections of code written to complete a task.",
+    answer: "Function",
+    choice: ["Loop", "Function", "Array", "Paragraph"],
   },
 ];
 var timeLeft = 75;
