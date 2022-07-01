@@ -28,7 +28,7 @@ var questionBankObj = [
     //object contains the question, the index of the answer from choices, will give an Id to each choice associated to its position within the array.
     question: "Arrays in JavaScript can be used to store __",
     answer: "Numbers and Strings",
-    choice: ["Numbers and strings", "Files", "HTML", "Images"],
+    choice: ["Numbers and Strings", "Files", "HTML", "Images"],
   },
   {
     question: "What does HTML stand for?",
